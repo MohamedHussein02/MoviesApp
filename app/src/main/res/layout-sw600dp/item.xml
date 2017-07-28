@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="450dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingRight="4dp"
+    android:paddingBottom="4dp"
+    android:id="@+id/itemLayout"
+    android:clickable="true"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:id="@+id/posterIV"
+        android:scaleType="fitXY"
+        android:clickable="true"
+        android:adjustViewBounds="true"
+        />
+
+    <com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
+        android:id="@+id/progressCircle"
+        android:layout_height="200dp"
+        android:layout_width="200dp"
+        android:indeterminate="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="82dp"
+        app:mlpb_enable_circle_background="false"
+        app:mlpb_progress_color="#006064"
+        app:mlpb_show_arrow="false"
+        app:mlpb_progress_text_color="#00ffffff"
+        app:mlpb_progress_stoke_width="8dp"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/BriefDescriptionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        >
+
+        <TextView
+            android:id="@+id/MovieNameTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:maxLines="1"
+            />
+        <TextView
+            android:id="@+id/ReleaseDateTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textSize="20sp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:textAlignment="center"
+            android:textColor="#c8ffffff"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.mudio.movies.Activities.DetailsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/detailsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4f5b62"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_below="@id/detailsToolbar"
+
+        ><RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/detailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="#3c464b"
+            android:animateLayoutChanges="true"
+            android:paddingBottom="16dp"
+            >
+
+            <ImageView
+                android:id="@+id/posterIVDetails"
+                android:layout_width="182dp"
+                android:layout_height="278dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:adjustViewBounds="true"
+                android:src="@drawable/placeholder"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                />
+
+            <RelativeLayout
+                android:id="@+id/descriptionDataLayout"
+                android:layout_width="182dp"
+                android:layout_height="278dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:layout_toEndOf="@id/posterIVDetails"
+               >
+                <TextView
+                    android:id="@+id/releaseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Release Date"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textColor="#FFF"
+                    />
+
+                <TextView
+                    android:id="@+id/releaseDateTVDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@id/releaseDate"
+                    android:layout_below="@id/releaseDate"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="2017"
+                    android:textAlignment="center"
+                    android:textColor="#c8ffffff"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Rating"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#FFF"
+                    android:layout_below="@id/releaseDateTVDetails"
+                    android:layout_marginTop="16dp"
+                    />
+
+                <TextView
+                    android:id="@+id/ratingTVDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@id/rating"
+                    android:layout_below="@id/rating"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="7.5"
+                    android:textAlignment="center"
+                    android:textColor="#c8ffffff"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/originalLang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Original Language"
+                    android:textAlignment="center"
+                    android:textSize="19dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#FFF"
+                    android:layout_below="@id/ratingTVDetails" />
+                <TextView
+                    android:id="@+id/originalLangTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="2017"
+                    android:textSize="18dp"
+                    android:textColor="#c8ffffff"
+                    android:textAlignment="center"
+                    android:layout_below="@id/originalLang"
+                    android:layout_alignEnd="@id/releaseDate"
+                    android:layout_marginBottom="20dp"
+                    />
+            </RelativeLayout>
+            <com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
+                android:id="@+id/progressCircleDetails"
+
+                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:indeterminate="true"
+                android:visibility="visible"
+                app:mlpb_enable_circle_background="false"
+                app:mlpb_progress_color="#006064"
+                app:mlpb_show_arrow="false"
+                app:mlpb_progress_text_color="#00ffffff"
+                app:mlpb_progress_stoke_width="4dp"
+                android:layout_marginBottom="86dp"
+                android:layout_marginTop="86dp"
+                android:layout_toStartOf="@id/descriptionDataLayout"
+                android:layout_marginEnd="40dp" />
+
+            <Button
+                android:id="@+id/trailersBtn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#263238"
+                android:layout_below="@id/posterIVDetails"
+                android:layout_marginTop="16dp"
+                android:text="TRAILERS"
+                android:textColor="#FFF"
+                android:textSize="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+            />
+            <RelativeLayout
+                android:id="@+id/trailersLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/details_expandable_views_background"
+                android:animateLayoutChanges="true"
+                android:layout_below="@id/trailersBtn"
+                android:layout_centerHorizontal="true"
+                android:padding="8dp"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:id="@+id/trailer1TV"
+                    android:layout_width="160dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentStart="true"
+                    android:background="#006064"
+                    android:text="Trailer #1"
+                    android:textAlignment="center"
+                    android:textSize="10dp"
+                    android:textColor="#00BCD4"
+                    android:visibility="gone"
+                    />
+                <ImageView
+                    android:id="@+id/trailer1IV"
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="30dp"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/trailer2TV"
+                    android:layout_width="160dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="#006064"
+                    android:text="Trailer #2"
+                    android:textAlignment="center"
+                    android:textSize="10dp"
+                    android:textColor="#00BCD4"
+                    android:visibility="gone"
+                    />
+
+                <ImageView
+                    android:id="@+id/trailer2IV"
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/trailerSingleTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_alignParentStart="true"
+                    android:background="#006064"
+                    android:text="Trailer"
+                    android:textAlignment="center"
+                    android:textSize="10dp"
+                    android:textColor="#00BCD4"
+                    android:visibility="gone"
+                    />
+
+                <ImageView
+                    android:id="@+id/trailerSingleIV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:adjustViewBounds="true"
+                    android:layout_alignParentStart="true"
+                    android:visibility="gone"
+                    />
+                <TextView
+                    android:id="@+id/noTrailersFoundTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:text="No trailers found"
+                    android:textColor="#FFF"
+                    android:textSize="35dp"
+                    android:textAlignment="center"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"
+                    />
+                <com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
+                    android:id="@+id/trailersProgressCircle"
+                    android:layout_height="63dp"
+                    android:layout_width="63dp"
+                    android:indeterminate="true"
+                    android:visibility="visible"
+                    app:mlpb_enable_circle_background="false"
+                    app:mlpb_progress_color="#006064"
+                    app:mlpb_show_arrow="false"
+                    app:mlpb_progress_text_color="#00ffffff"
+                    app:mlpb_progress_stoke_width="4dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/overviewBtn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/trailersLayout"
+                android:text="OVERVIEW"
+                android:layout_marginTop="16dp"
+                android:background="#263238"
+                android:textColor="#FFF"
+                android:textSize="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                />
+        <TextView
+            android:id="@+id/overviewTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/overviewBtn"
+            android:background="@drawable/details_expandable_views_background"
+            android:textColor="#c8ffffff"
+            android:textSize="14dp"
+            android:padding="10dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
+        </RelativeLayout>
+    </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

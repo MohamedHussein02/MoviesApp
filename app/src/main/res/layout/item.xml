@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="267dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingEnd="2dp"
+    android:paddingBottom="2dp"
+    android:id="@+id/itemLayout"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="218dp"
+        android:id="@+id/posterIV"
+        android:scaleType="fitXY"
+        android:clickable="true"
+        android:adjustViewBounds="true"
+        />
+
+      <com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
+          android:id="@+id/progressCircle"
+          android:layout_height="100dp"
+          android:layout_width="100dp"
+          android:indeterminate="true"
+          app:mlpb_enable_circle_background="false"
+          app:mlpb_progress_color="#006064"
+          app:mlpb_show_arrow="false"
+          app:mlpb_progress_text_color="#00ffffff"
+          app:mlpb_progress_stoke_width="4dp"
+          android:layout_marginBottom="53dp"
+          android:layout_above="@+id/BriefDescriptionLayout"
+          android:layout_centerHorizontal="true" />
+    
+    <ImageView
+        android:id="@+id/reloadIV"
+        android:layout_width="match_parent"
+        android:layout_height="218dp"
+        android:src="@drawable/reload_image"
+        android:scaleType="center"
+        android:visibility="gone"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/BriefDescriptionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/main_items_background"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        >
+
+        <TextView
+            android:id="@+id/MovieNameTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            />
+        <TextView
+            android:id="@+id/ReleaseDateTV"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:textColor="#c8ffffff"
+            android:layout_below="@+id/MovieNameTV"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

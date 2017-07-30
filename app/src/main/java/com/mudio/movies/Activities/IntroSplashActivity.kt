@@ -1,6 +1,5 @@
 package com.mudio.movies.Activities
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +10,7 @@ import com.mudio.movies.DataRetrievers.TmdbJsons
 import com.mudio.movies.DataRetrievers.UrlCreator
 
 import com.mudio.movies.R
+import com.mudio.movies.startActivity
 
 class IntroSplashActivity : AppCompatActivity() {
 
@@ -25,17 +25,18 @@ class IntroSplashActivity : AppCompatActivity() {
             AsyncJob.doInBackground {
 
                 if (!(ActivityCreated.instance.introSplashActivityCreated)) {
+
                     ActivityCreated.instance.introSplashActivityCreated = true
                     TmdbJsons.instance.mostPopularJson = OkHttpDataRetriever().getResult(UrlCreator().getTmdbMostPopularUrl())
                     TmdbJsons.instance.topRatedJson = OkHttpDataRetriever().getResult(UrlCreator().getTmdbTopRatedUrl())
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+
+                    startActivity<MainActivity>()
                     finish()
                 } else {
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    startActivity<MainActivity>()
                     finish()
                 }
             }
         }, SPLASH_DURATION.toLong() )
     }
-
 }

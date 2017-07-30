@@ -7,18 +7,20 @@ import com.mudio.movies.DataClasses.TMDBVideoData.VideoResult
 import com.mudio.movies.DataClasses.YoutubeVideoData.YoutubeVideo
 import com.mudio.movies.DataRetrievers.OkHttpDataRetriever
 import com.mudio.movies.DataRetrievers.UrlCreator
+import com.mudio.movies.parseJson
 
 class DetailsTrailersData(private val movieId: String){
 
     private val urlCreator = UrlCreator()
     private val filteredVideoKeys = arrayListOf<String>()
     private var matchingKeys = arrayListOf<String>()
-    private var videoKeys = mutableListOf<VideoResult>()
+    lateinit private var videoKeys : MutableList<VideoResult>
 
     private fun getVideoData() {
         val VIDEO_URL = urlCreator.getVideosJson(movieId)
         val VIDEO_JSON = OkHttpDataRetriever().getResult(VIDEO_URL)
-        videoKeys = jacksonObjectMapper().readValue<VideosList>(VIDEO_JSON).results!!
+
+        videoKeys = parseJson<VideosList>(VIDEO_JSON).results!!
     }
 
     private fun filterVideoKeys(){
@@ -44,7 +46,7 @@ class DetailsTrailersData(private val movieId: String){
             (0..filteredVideoKeys.size - 1).forEach {
                 val videoDataUrl = urlCreator.getYoutubeVideoData(filteredVideoKeys[it])
                 val videoDataJson = OkHttpDataRetriever().getResult(videoDataUrl)
-                trailersList.add(jacksonObjectMapper().readValue<YoutubeVideo>(videoDataJson))
+                trailersList.add( parseJson<YoutubeVideo>(videoDataJson) )
             }
 
             val topOccurredAuthor = getTopOccurredAuthor(trailersList)

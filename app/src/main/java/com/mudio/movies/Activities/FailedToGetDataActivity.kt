@@ -16,6 +16,8 @@ import android.support.design.widget.Snackbar
 import com.arasthel.asyncjob.AsyncJob
 import com.mudio.movies.DataRetrievers.TmdbJsons
 import com.mudio.movies.DataRetrievers.UrlCreator
+import com.mudio.movies.DataRetrievers.TmdbJsons.Companion
+import com.mudio.movies.startActivity
 
 class FailedToGetDataActivity : AppCompatActivity() {
 
@@ -68,9 +70,8 @@ class FailedToGetDataActivity : AppCompatActivity() {
                 val response = OkHttpDataRetriever().getResult(UrlCreator().getTmdbTestUrl())
 
                 if (response != "failed") {
-
                     getTmdbData()
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    startActivity<MainActivity>()
                     finish()
 
                 } else {

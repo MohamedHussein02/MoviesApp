@@ -3,7 +3,6 @@ package com.mudio.movies.Activities
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.mudio.movies.AnimationsAndTransitions.TransitionsDetailsActivity
 import com.mudio.movies.DataRetrievers.DetailsActivity.DetailsActivityData
@@ -12,82 +11,72 @@ import kotlinx.android.synthetic.main.details_activity.*
 import android.widget.ImageView
 import com.mudio.movies.DataRetrievers.DetailsActivity.DetailsTrailersData
 import com.mudio.movies.DataClasses.DetailedMovieData.SingleMovieDataResult
-import android.content.Intent
-import android.net.Uri
 import com.mudio.movies.DataRetrievers.DetailedMovieDataRetriever
 import com.mudio.movies.DataRetrievers.PicassoImageRetriever
 import com.mudio.movies.DataRetrievers.TmdbJsons
+import com.mudio.movies.parseJson
+import com.mudio.movies.startYoutubeIntent
 
 class DetailsActivity : AppCompatActivity() {
 
     private val transitionsTrailersInstance = TransitionsDetailsActivity()
     private val transitionsOverviewInstance = TransitionsDetailsActivity()
     private var movieId = 0
+    private val SIDE_WAYS = R.drawable.placeholder_sideways
     lateinit private var detailsTrailersInstance : DetailsTrailersData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(Bundle())
         setContentView(R.layout.details_activity)
         setSupportActionBar(detailsToolbar)
-        initData()
-        initEvents()
 
+        initComponents( getDataFromIntent() )
+        YoutubeThumbnailsLoader(movieId).execute()
+        initEvents()
     }
 
-    private fun initData() {
-        val data = getDataFromIntent()
+    private fun initComponents(data: SingleMovieDataResult) {
         val detailsActivityDataRetriever = DetailsActivityData(data)
 
         detailsActivityDataRetriever.initToolbarTitle(supportActionBar!!)
         detailsActivityDataRetriever.initTextViews(releaseDateTVDetails, ratingTVDetails, originalLangTV)
         detailsActivityDataRetriever.initOverviewText(overviewTV)
-        detailsActivityDataRetriever.initPosterImage(posterIVDetails,progressCircleDetails)
-
-        YoutubeThumbnailsLoader(movieId).execute()
+        detailsActivityDataRetriever.initPosterImage(posterIVDetails, progressCircleDetails)
     }
 
     private fun getDataFromIntent(): SingleMovieDataResult {
         movieId = intent.getIntExtra(DetailedMovieDataRetriever.ID_EXTRA_NAME, 0)
 
-        return DetailedMovieDataRetriever().parseDetailedMovieFromString(TmdbJsons.instance.detailedMovieJson)
+        return parseJson(TmdbJsons.instance.detailedMovieJson)
     }
 
     private fun initEvents() {
-        trailersBtn.setOnClickListener{ _ ->
+        trailersBtn.setOnClickListener{
             transitionsTrailersInstance.ExpandCollapseTransitioning(detailsLayout, trailersLayout)
         }
 
-        overviewBtn.setOnClickListener{ _ ->
-            transitionsOverviewInstance.ExpandCollapseTransitioning(detailsLayout,overviewTV)
+        overviewBtn.setOnClickListener{
+            transitionsOverviewInstance.ExpandCollapseTransitioning(detailsLayout, overviewTV)
         }
 
     }
 
     private fun initTrailersOnClick(){
-        val youtubeVideoURLs = getDetailsTrailersVideoUrl()
+        val youtubeVideoURLs = detailsTrailersInstance.getYoutubeVideoUrls()
 
         if(trailer1IV.visibility == View.VISIBLE){
-            trailer1IV.setOnClickListener{ _ ->
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(youtubeVideoURLs[0])))
-            }
+            trailer1IV.setOnClickListener{ startYoutubeIntent(youtubeVideoURLs[0]) }
         }
 
         if(trailer2IV.visibility == View.VISIBLE){
-            trailer2IV.setOnClickListener{ _ ->
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(youtubeVideoURLs[1])))
+            trailer2IV.setOnClickListener{
+                startYoutubeIntent(youtubeVideoURLs[1])
             }
         }
 
         if(trailerSingleIV.visibility == View.VISIBLE){
-            trailerSingleIV.setOnClickListener{ _ ->
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(youtubeVideoURLs[0])))
-            }
+            trailerSingleIV.setOnClickListener{ startYoutubeIntent(youtubeVideoURLs[0]) }
         }
-    }
-
-    private fun getDetailsTrailersVideoUrl():ArrayList<String>{
-
-        return detailsTrailersInstance.getYoutubeVideoUrls()
     }
 
     inner class YoutubeThumbnailsLoader(private val movieId: Int): AsyncTask<Unit,Unit,Unit>(){
@@ -113,8 +102,7 @@ class DetailsActivity : AppCompatActivity() {
             imageView.visibility = View.VISIBLE
 
             PicassoImageRetriever()
-                    .loadImage(imageView, url, trailersProgressCircle, PicassoImageRetriever.SIDEWAYS)
-            Log.e("Picasso", "Loaded")
+                    .loadImage(imageView, url, trailersProgressCircle, SIDE_WAYS)
         }
 
         private fun loadThumbnailsInImageViews( URLs: ArrayList<String> ){
@@ -127,15 +115,12 @@ class DetailsActivity : AppCompatActivity() {
                 1->{
                     trailerPicasso(URLs[0], trailerSingleIV)
                     trailerSingleTV.visibility = View.VISIBLE
-                    Log.e("URLs:", URLs[0])
                 }
                 else->{
                     trailerPicasso(URLs[0], trailer1IV)
-                    trailer1TV.visibility = View.VISIBLE
                     trailerPicasso(URLs[1], trailer2IV)
+                    trailer1TV.visibility = View.VISIBLE
                     trailer2TV.visibility = View.VISIBLE
-                    Log.e("URLs:", URLs[0])
-                    Log.e("URLs:", URLs[1])
                 }
             }
         }

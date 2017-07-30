@@ -10,11 +10,6 @@ import com.squareup.picasso.Picasso
 
 class PicassoImageRetriever{
 
-    companion object {
-        val PERPENDICULAR = R.drawable.placeholder
-        val SIDEWAYS = R.drawable.placeholder_sideways
-    }
-
     fun loadImage(imageView: ImageView, URL: String, progCircle: CircleProgressBar,
                   placeHolderOrientation: Int){
 
@@ -29,6 +24,27 @@ class PicassoImageRetriever{
 
                     override fun onError() {
                         Log.e("Picasso", "failed to load image")
+                    }
+                })
+    }
+
+    fun loadImage(imageView: ImageView, URL: String, progCircle: CircleProgressBar,
+                  placeHolderOrientation: Int, function1:() -> Unit , function2: () -> Unit, function3: () -> Unit){
+
+        Picasso.with(imageView.context)
+                .load(URL)
+                .placeholder(placeHolderOrientation)
+                .into(imageView, object : Callback {
+                    override fun onSuccess() {
+                        progCircle.visibility = View.GONE
+                        function1
+                        function2
+
+                    }
+
+                    override fun onError() {
+                        Log.e("Picasso", "failed to load image")
+                        function3
                     }
                 })
     }

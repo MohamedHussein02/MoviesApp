@@ -11,35 +11,34 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.arasthel.asyncjob.AsyncJob
 import com.elmargomez.typer.Font
 import com.elmargomez.typer.Typer
 import com.mudio.movies.DataClasses.MovieData.MovieResult
 import com.mudio.movies.DataRetrievers.UrlCreator
 import com.mudio.movies.R
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
+import com.mudio.movies.DataRetrievers.PicassoImageRetriever
 
-class RecyclerAdapter(var resultsArray: ArrayList<MovieResult>,
+class RecyclerAdapter(var resultsList: ArrayList<MovieResult>,
                       var con: Context,
                       listener: ListItemClickListener)
     : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    private var SIZE_FORMAT = "w600"
-    private var mOnClickListener = listener
+    private val SIZE_FORMAT = "w600"
+    private val mOnClickListener = listener
+    private val PERPENDICULAR = R.drawable.placeholder
 
     interface ListItemClickListener { fun onListItemClick(movieId: Int, holder: ViewHolder, position: Int) }
 
-    override fun getItemCount(): Int { return resultsArray.size }
+    override fun getItemCount(): Int { return resultsList.size }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(con).inflate(R.layout.item,parent,false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = resultsArray[position]
-
-        initData(data, holder)
+        initData(resultsList[position], holder)
         initEvents(holder)
     }
 
@@ -70,24 +69,16 @@ class RecyclerAdapter(var resultsArray: ArrayList<MovieResult>,
     private fun loadPosterImage(data: MovieResult, holder: ViewHolder) {
         val URL = UrlCreator().getPosterPathUrl(data.posterPath!!, SIZE_FORMAT)
 
+        PicassoImageRetriever()
+                .loadImage( holder.posterIV, URL, holder.progCircle, PERPENDICULAR
+                        ,{ RecyclerAdapter.briefDescriptionColors(holder)}
 
-        Picasso.with(holder.posterIV.context)
-                .load(URL)
-                .placeholder(R.drawable.placeholder)
-                .into(holder.posterIV, object : Callback {
-                    override fun onSuccess() {
-                        holder.progCircle.visibility = View.GONE
-                        briefDescriptionColors(holder)
-                        setTvTypeface(holder, con)
-                    }
+                        ,{RecyclerAdapter.setTvTypeface(holder, con)}
 
-                    override fun onError() {
-
-                        holder.cancelPicassoRequests()
-
-                        holder.progCircle.visibility = View.GONE
-                        holder.reloadIV.visibility = View.VISIBLE
-                    }
+                        ,{
+                    holder.cancelPicassoRequests()
+                    holder.progCircle.visibility = View.GONE
+                    holder.reloadIV.visibility = View.VISIBLE
                 })
 
     }
@@ -116,21 +107,20 @@ class RecyclerAdapter(var resultsArray: ArrayList<MovieResult>,
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view),View.OnClickListener{
 
-        val posterIV = view.findViewById<View>(R.id.posterIV) as ImageView
-        val movieNameTV = view.findViewById<View>(R.id.MovieNameTV) as TextView
-        val releaseDateTV = view.findViewById<View>(R.id.ReleaseDateTV) as TextView
-        val briefDescriptionLayout = view.findViewById<View>(R.id.BriefDescriptionLayout) as RelativeLayout
-        val itemLayout = view.findViewById<View>(R.id.itemLayout) as RelativeLayout
-        val progCircle = view.findViewById<View>(R.id.progressCircle) as com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
-        val reloadIV = view.findViewById<View>(R.id.reloadIV) as ImageView
+        val posterIV = view.findViewById<ImageView>(R.id.posterIV)!!
+        val movieNameTV = view.findViewById<TextView>(R.id.MovieNameTV)!!
+        val releaseDateTV = view.findViewById<TextView>(R.id.ReleaseDateTV)!!
+        val briefDescriptionLayout = view.findViewById<RelativeLayout>(R.id.BriefDescriptionLayout)!!
+        val itemLayout = view.findViewById<RelativeLayout>(R.id.itemLayout)!!
+        val progCircle = view.findViewById<CircleProgressBar>(R.id.progressCircle) !!
+        val reloadIV = view.findViewById<ImageView>(R.id.reloadIV) !!
 
         override fun onClick(view: View) {
-            mOnClickListener.onListItemClick(resultsArray[adapterPosition].id!!, this, adapterPosition)
+            mOnClickListener.onListItemClick(resultsList[adapterPosition].id!!, this, adapterPosition)
         }
 
         fun cancelPicassoRequests(){
             Picasso.with(posterIV.context).cancelRequest(posterIV)
-
         }
     }
 }

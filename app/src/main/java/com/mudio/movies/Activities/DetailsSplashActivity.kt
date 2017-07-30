@@ -9,6 +9,8 @@ import com.mudio.movies.DataRetrievers.DetailedMovieDataRetriever
 import com.mudio.movies.DataRetrievers.TmdbJsons
 import com.mudio.movies.DataRetrievers.UrlCreator
 import com.mudio.movies.R
+import com.mudio.movies.createIntent
+import com.mudio.movies.parseJson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.details_splash_activity.*
 
@@ -32,10 +34,11 @@ class DetailsSplashActivity : AppCompatActivity() {
         launchDetailActivity()
     }
 
+
     private fun initData() {
         movieId = intent.getIntExtra(DetailedMovieDataRetriever.ID_EXTRA_NAME, 0)
 
-        detailedMovieData = movieRetriever.parseDetailedMovieFromString(movieJson)
+        detailedMovieData = parseJson<SingleMovieDataResult>(movieJson)
 
         initTagLine()
     }
@@ -63,9 +66,7 @@ class DetailsSplashActivity : AppCompatActivity() {
             bundle.putInt(DetailedMovieDataRetriever.ID_EXTRA_NAME, movieId)
             bundle.putString(DetailedMovieDataRetriever.MOVIE_INTENT_NAME, movieJson)
 
-            val intent = Intent(applicationContext, DetailsActivity::class.java)
-            intent.putExtras(bundle)
-            startActivity(intent)
+            startActivity( createIntent<DetailsActivity>().putExtras(bundle) )
             finish()
 
         }, SPLASH_DISPLAY_TIME.toLong())

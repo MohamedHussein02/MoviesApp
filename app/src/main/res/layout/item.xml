@@ -10,12 +10,10 @@
     >
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="218dp"
         android:id="@+id/posterIV"
         android:scaleType="fitXY"
-        android:clickable="true"
-        android:adjustViewBounds="true"
         />
 
       <com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
@@ -41,13 +39,12 @@
         android:visibility="gone"
         />
 
-
     <RelativeLayout
         android:id="@+id/BriefDescriptionLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/main_items_background"
+        android:background="#001114"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
         >

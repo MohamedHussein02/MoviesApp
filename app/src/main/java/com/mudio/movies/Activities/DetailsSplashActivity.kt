@@ -1,6 +1,5 @@
 package com.mudio.movies.Activities
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -19,7 +18,6 @@ class DetailsSplashActivity : AppCompatActivity() {
     private val SPLASH_DISPLAY_TIME = 3000
     lateinit private var detailedMovieData : SingleMovieDataResult
     private val POSTER_SIZE_FORMAT="w600"
-    private val movieRetriever = DetailedMovieDataRetriever()
     private var movieId = 0
     private val movieJson = TmdbJsons.instance.detailedMovieJson
     private val handler = Handler()
@@ -50,8 +48,6 @@ class DetailsSplashActivity : AppCompatActivity() {
         tagLineShadow2TV.text = tagLineDecorated
         tagLineShadow3TV.text = tagLineDecorated
         tagLineShadow4TV.text = tagLineDecorated
-        tagLineShadow5TV.text = tagLineDecorated
-        tagLineShadow6TV.text = tagLineDecorated
     }
 
     private fun loadBackgroundImage() {

@@ -1,9 +1,6 @@
 package com.mudio.movies.Adapters
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
-import android.support.v7.graphics.Palette
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.elmargomez.typer.Font
-import com.elmargomez.typer.Typer
 import com.mudio.movies.DataClasses.MovieData.MovieResult
 import com.mudio.movies.DataRetrievers.UrlCreator
 import com.mudio.movies.R
-import com.squareup.picasso.Picasso
 import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
 import com.mudio.movies.DataRetrievers.PicassoImageRetriever
 
@@ -70,17 +64,7 @@ class RecyclerAdapter(var resultsList: ArrayList<MovieResult>,
         val URL = UrlCreator().getPosterPathUrl(data.posterPath!!, SIZE_FORMAT)
 
         PicassoImageRetriever()
-                .loadImage( holder.posterIV, URL, holder.progCircle, PERPENDICULAR
-                        ,{ RecyclerAdapter.briefDescriptionColors(holder)}
-
-                        ,{RecyclerAdapter.setTvTypeface(holder, con)}
-
-                        ,{
-                    holder.cancelPicassoRequests()
-                    holder.progCircle.visibility = View.GONE
-                    holder.reloadIV.visibility = View.VISIBLE
-                })
-
+                .loadImage( holder.posterIV, URL, holder.progCircle, PERPENDICULAR)
     }
 
     private fun initEvents(holder: ViewHolder) {
@@ -88,39 +72,17 @@ class RecyclerAdapter(var resultsList: ArrayList<MovieResult>,
         holder.posterIV.setOnClickListener(holder)
     }
 
-    companion object {
-        fun briefDescriptionColors(holder: ViewHolder){
-            val bitmap = holder.posterIV.drawable as BitmapDrawable
-            val palette = Palette.from(bitmap.bitmap).generate()
-
-            holder.briefDescriptionLayout.
-                    setBackgroundColor(palette.
-                            getDarkVibrantColor(palette.
-                                    getVibrantColor(Color.parseColor("#000a12"))))
-        }
-
-        fun setTvTypeface(holder: ViewHolder, con: Context){
-            holder.movieNameTV.typeface = Typer.set(con).getFont(Font.ROBOTO_MEDIUM)
-            holder.releaseDateTV.typeface = Typer.set(con).getFont(Font.ROBOTO_REGULAR)
-        }
-    }
-
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view),View.OnClickListener{
 
         val posterIV = view.findViewById<ImageView>(R.id.posterIV)!!
         val movieNameTV = view.findViewById<TextView>(R.id.MovieNameTV)!!
         val releaseDateTV = view.findViewById<TextView>(R.id.ReleaseDateTV)!!
-        val briefDescriptionLayout = view.findViewById<RelativeLayout>(R.id.BriefDescriptionLayout)!!
         val itemLayout = view.findViewById<RelativeLayout>(R.id.itemLayout)!!
         val progCircle = view.findViewById<CircleProgressBar>(R.id.progressCircle) !!
         val reloadIV = view.findViewById<ImageView>(R.id.reloadIV) !!
 
         override fun onClick(view: View) {
             mOnClickListener.onListItemClick(resultsList[adapterPosition].id!!, this, adapterPosition)
-        }
-
-        fun cancelPicassoRequests(){
-            Picasso.with(posterIV.context).cancelRequest(posterIV)
         }
     }
 }

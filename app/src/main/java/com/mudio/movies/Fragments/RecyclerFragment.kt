@@ -80,16 +80,7 @@ class RecyclerFragment(private val position:Int) : Fragment(), RecyclerAdapter.L
         toggleProgCircleAndReloadIV(holder)
 
         PicassoImageRetriever()
-                .loadImage( holder.posterIV, url, holder.progCircle, PERPENDICULAR
-                        ,{ RecyclerAdapter.briefDescriptionColors(holder)}
-
-                        ,{RecyclerAdapter.setTvTypeface(holder, context)}
-
-                        ,{
-                    holder.cancelPicassoRequests()
-                    holder.progCircle.visibility = View.GONE
-                    holder.reloadIV.visibility = View.VISIBLE
-                })
+                .loadImage( holder.posterIV, url, holder.progCircle, PERPENDICULAR)
     }
 
     private fun toggleProgCircleAndReloadIV(holder: RecyclerAdapter.ViewHolder) {

@@ -27,8 +27,7 @@ class IntroSplashActivity : AppCompatActivity() {
                 if (!(ActivityCreated.instance.introSplashActivityCreated)) {
 
                     ActivityCreated.instance.introSplashActivityCreated = true
-                    TmdbJsons.instance.mostPopularJson = OkHttpDataRetriever().getResult(UrlCreator().getTmdbMostPopularUrl())
-                    TmdbJsons.instance.topRatedJson = OkHttpDataRetriever().getResult(UrlCreator().getTmdbTopRatedUrl())
+                    getData()
 
                     startActivity<MainActivity>()
                     finish()
@@ -38,5 +37,10 @@ class IntroSplashActivity : AppCompatActivity() {
                 }
             }
         }, SPLASH_DURATION.toLong() )
+    }
+
+    private fun getData(){
+        TmdbJsons.instance.mostPopularJson = OkHttpDataRetriever().getResult(UrlCreator().getTmdbMostPopularUrl())
+        TmdbJsons.instance.topRatedJson = OkHttpDataRetriever().getResult(UrlCreator().getTmdbTopRatedUrl())
     }
 }

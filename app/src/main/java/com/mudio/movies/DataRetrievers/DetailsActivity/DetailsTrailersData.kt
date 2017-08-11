@@ -1,7 +1,5 @@
 package com.mudio.movies.DataRetrievers.DetailsActivity
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.mudio.movies.DataClasses.TMDBVideoData.VideosList
 import com.mudio.movies.DataClasses.TMDBVideoData.VideoResult
 import com.mudio.movies.DataClasses.YoutubeVideoData.YoutubeVideo

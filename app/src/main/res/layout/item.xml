@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="267dp"
+    android:layout_height="wrap_content"
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingEnd="2dp"
@@ -12,6 +14,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="218dp"
+
         android:id="@+id/posterIV"
         android:scaleType="fitXY"
         />
@@ -37,6 +40,7 @@
         android:src="@drawable/reload_image"
         android:scaleType="center"
         android:visibility="gone"
+
         />
 
     <RelativeLayout
@@ -72,4 +76,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>

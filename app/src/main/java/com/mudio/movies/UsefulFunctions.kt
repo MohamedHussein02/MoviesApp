@@ -14,7 +14,3 @@ inline fun<reified T: Activity> Activity.startActivity() {
 inline fun<reified T: Activity> Activity.createIntent() = Intent(this, T::class.java)
 
 inline fun<reified T: Any> parseJson(jsonAsString: String) = jacksonObjectMapper().readValue<T>(jsonAsString)
-
-fun Activity.startYoutubeIntent(url: String){ startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
-
-fun Activity.startSettingsIntent(){startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))}

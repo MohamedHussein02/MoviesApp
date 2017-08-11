@@ -14,19 +14,19 @@ class DetailsActivityData(private val data: SingleMovieDataResult){
     private val SIZE_FORMAT = "w600"
     private val PERPENDICULAR = R.drawable.placeholder
 
-    fun initToolbarTitle(actionBar: ActionBar){ actionBar.title=data.title }
+    fun initToolbarTitle(actionBar: ActionBar){ actionBar.title = data.title }
 
-   fun initPosterImage(posterIV:ImageView, progressCircleProgressBar: CircleProgressBar) {
+    fun initPosterImage(posterIV:ImageView, progressCircleProgressBar: CircleProgressBar) {
 
-        val url = UrlCreator().getPosterPathUrl(data.posterPath!!, SIZE_FORMAT)
+        val URL = UrlCreator().getPosterPathUrl(data.posterPath!!, SIZE_FORMAT)
 
-        PicassoImageRetriever().loadImage(posterIV, url, progressCircleProgressBar, PERPENDICULAR)
+        PicassoImageRetriever().loadImage(posterIV, URL, progressCircleProgressBar, PERPENDICULAR)
     }
 
     fun initTextViews(releaseDate:TextView, rating:TextView, originalLanguage:TextView){
-        releaseDate.text=data.releaseDate
-        rating.text=data.voteAverage.toString()
-        originalLanguage.text=data.originalLanguage
+        releaseDate.text = data.releaseDate
+        rating.text = data.voteAverage.toString()
+        originalLanguage.text = data.originalLanguage
     }
 
     fun initOverviewText(textView: TextView){ textView.text = data.overview }

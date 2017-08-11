@@ -1,5 +1,8 @@
 package com.mudio.movies.Activities
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -15,7 +18,6 @@ import com.mudio.movies.DataRetrievers.DetailedMovieDataRetriever
 import com.mudio.movies.DataRetrievers.PicassoImageRetriever
 import com.mudio.movies.DataRetrievers.TmdbJsons
 import com.mudio.movies.parseJson
-import com.mudio.movies.startYoutubeIntent
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -58,20 +60,18 @@ class DetailsActivity : AppCompatActivity() {
         overviewBtn.setOnClickListener{
             transitionsOverviewInstance.ExpandCollapseTransitioning(detailsLayout, overviewTV)
         }
-
     }
 
     private fun initTrailersOnClick(){
         val youtubeVideoURLs = detailsTrailersInstance.getYoutubeVideoUrls()
+
 
         if(trailer1IV.visibility == View.VISIBLE){
             trailer1IV.setOnClickListener{ startYoutubeIntent(youtubeVideoURLs[0]) }
         }
 
         if(trailer2IV.visibility == View.VISIBLE){
-            trailer2IV.setOnClickListener{
-                startYoutubeIntent(youtubeVideoURLs[1])
-            }
+            trailer2IV.setOnClickListener{ startYoutubeIntent(youtubeVideoURLs[1]) }
         }
 
         if(trailerSingleIV.visibility == View.VISIBLE){
@@ -127,3 +127,5 @@ class DetailsActivity : AppCompatActivity() {
     }
 
 }
+
+fun Activity.startYoutubeIntent(url: String){ startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }

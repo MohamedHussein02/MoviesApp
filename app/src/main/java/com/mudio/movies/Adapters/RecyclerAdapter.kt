@@ -16,11 +16,10 @@ import com.mudio.movies.DataRetrievers.PicassoImageRetriever
 
 class RecyclerAdapter(var resultsList: ArrayList<MovieResult>,
                       var con: Context,
-                      listener: ListItemClickListener)
+                      private val listener: ListItemClickListener)
     : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     private val SIZE_FORMAT = "w600"
-    private val mOnClickListener = listener
     private val PERPENDICULAR = R.drawable.placeholder
 
     interface ListItemClickListener { fun onListItemClick(movieId: Int, holder: ViewHolder, position: Int) }
@@ -82,7 +81,7 @@ class RecyclerAdapter(var resultsList: ArrayList<MovieResult>,
         val reloadIV = view.findViewById<ImageView>(R.id.reloadIV) !!
 
         override fun onClick(view: View) {
-            mOnClickListener.onListItemClick(resultsList[adapterPosition].id!!, this, adapterPosition)
+            listener.onListItemClick(resultsList[adapterPosition].id!!, this, adapterPosition)
         }
     }
 }
